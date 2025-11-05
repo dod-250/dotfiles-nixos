@@ -1,0 +1,237 @@
+// ──────────────────────────────────────────────────────────────────────────
+//  dod
+//  Waybar config
+//  vers. 1.0.0
+// ──────────────────────────────────────────────────────────────────────────
+
+{
+  "layer": "top",
+  "position": "top",
+  "margin-top": 8,
+  "margin-bottom": -8,
+  "width": 1890,
+  "height": 34,
+
+  // ── Modules Layout ───────────────────────────────────────────────
+  "modules-left": [
+    "custom/battery-ascii",
+    "power-profiles-daemon",
+    "pulseaudio",
+    "backlight"
+  ],
+
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
+
+  "modules-right": [
+    "custom/nextcloud",
+    "bluetooth",
+    "network",
+    "custom/swaync",
+    "clock",
+    "custom/power"
+  ],
+
+  // ── Clock ────────────────────────────────────────────────────────
+  "clock": {
+    "tooltip-format": "{calendar}",
+    "format-alt": "[   {:%a, %d %b %Y} ]",
+    "format": "[   {:%I:%M %p} ]"
+  },
+
+  // ── Network ──────────────────────────────────────────────────────
+  "network": {
+    "format-wifi": "{icon}",
+    "format-icons": ["[ 󰤯 ]", "[ 󰤟 ]", "[ 󰤢 ]", "[ 󰤥 ]", "[ 󰤨 ]"],
+    "format-ethernet": "[ 󰀂 ]",
+    "format-alt": "[ 󱛇 ]",
+    "format-disconnected": "[ 󰖪 ]",
+    "tooltip-format-wifi": "{icon} {essid}\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "tooltip-format-ethernet": "󰀂  {ifname}\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "tooltip-format-disconnected": "Disconnected",
+    "on-click": "nm-connection-editor",
+    "interval": 5,
+    "nospacing": 1
+  },
+
+  // ── Keyboard ─────────────────────────────────────────────────────
+  "keyboard-state": {
+    "numlock": true,
+    "capslock": true,
+    "format": " {layout}"
+  },
+
+  // ── Bluetooth ────────────────────────────────────────────────────
+  "bluetooth": {
+    "format": "{icon}",
+    "format-icons": {
+      "enabled": "[  ]",
+      "disabled": "[ 󰂲 ]"
+    },
+    "on-click": "~/.config/waybar/scripts/bluetooth-toggle.sh",
+    "tooltip-format": "Bluetooth is {status}",
+    "interval": 5
+  },
+
+
+  // ── Battery (scripted + built-in) ────────────────────────────────
+  "custom/battery-ascii": {
+    "exec": "~/.config/waybar/scripts/battery_ascii.sh",
+    "interval": 30,
+    "return-type": "json",
+    "format": "{}",
+    "max-length": 50
+  },
+
+  "battery": {
+    "format": "{icon}  {capacity}%",
+    "format-icons": {
+      "charging": [
+        "󰢜","󰂆","󰂇","󰂈","󰢝","󰂉","󰢞","󰂊","󰂋","󰂅"
+      ],
+      "default": [
+        "󰁺","󰁻","󰁼","󰁽","󰁾","󰁿","󰂀","󰂁","󰂂","󰁹"
+      ]
+    },
+    "format-full": "Charged ",
+    "interval": 5,
+    "states": {
+      "warning": 20,
+      "critical": 10
+    },
+    "tooltip": true
+  },
+
+  // ── Brightness ───────────────────────────────────────────────────
+  "custom/brightness": {
+    "exec": "~/.config/waybar/scripts/brightness.sh",
+    "return-type": "json",
+    "interval": 2,
+    "on-click": "~/.config/waybar/scripts/brightness-toggle.sh",
+    "on-scroll-up": "brightnessctl set +5%",
+    "on-scroll-down": "brightnessctl set 5%-"
+  },
+
+  "backlight": {
+    "format": "󰛨  {percent}%",
+    "format-icons": ["󰃞","󰃟","󰃠","󰃝","󰃜","󰃛"],
+    "class": "flicker-bar",
+    "on-click": "~/.config/waybar/scripts/brightness-slider.sh"
+  },
+
+  // ── Workspaces ──────────────────────────────────
+  "hyprland/workspaces": {
+    "format": "[ {name} ]",
+    "format-icons": {
+      "active": "󰻃",
+      "default": ""
+			},
+      "persistent-workspaces": {
+        "eDP-1": [1, 2, 3, 4]
+     }
+   },
+
+  // ── Volume ───────────────────────────────────────────────────────
+  "custom/volume": {
+    "exec": "~/.config/waybar/scripts/volume.sh",
+    "return-type": "json",
+    "interval": 1,
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-scroll-up": "wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+  },
+
+  // ── Power ────────────────────────────────────────────────────────
+  "custom/power": {
+    "format": "[ 󰤆 ]",
+    "tooltip": true,
+    "tooltip-format": "Power Menu",
+    "on-click": "~/.config/waybar/scripts/powermenu.sh"
+  },
+
+  // ── Tray ─────────────────────────────────────────────────────────
+  "tray": {
+        "icon-size": 16,
+	"show-passive-items": false,
+        "rotate": 0,
+        "spacing": 5,
+  },
+  
+  // ── Power profiles ───────────────────────────────────────────────
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power profile: {profile}nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "default": "[ HIGH ]",
+      "performance": "[ HIGH ]",
+      "balanced": "[ MID ]",
+      "power-saver": "[ LOW ]"
+    }
+  },
+
+  // ── Swaync ───────────────────────────────────────────────────────
+  "custom/swaync": {
+    "tooltip": true,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "[ <span foreground='red'><sup></sup></span> ]",
+      "none": "[  ]",
+      "dnd-notification": "[ <span foreground='red'><sup></sup></span> ]",
+      "dnd-none": "",
+      "inhibited-notification": "[ <span foreground='red'><sup></sup></span> ]",
+      "inhibited-none": "[  ]",
+      "dnd-inhibited-notification": "[ <span foreground='red'><sup></sup></span> ]",
+      "dnd-inhibited-none": "[  ]"
+   },
+     "return-type": "json",
+     "exec-if": "which swaync-client",
+     "exec": "swaync-client -swb",
+     "on-click": "sleep 0.1 && swaync-client -t -sw",
+     "on-click-right": "swaync-client -d -sw",
+     "escape": true
+  },
+
+  // ── Nextcloud ────────────────────────────────────────────────────
+  "custom/nextcloud": {
+     "exec": "~/.config/waybar/scripts/nextcloud.sh",
+     "return-type": "json",
+     "interval": 10,
+     "tooltip": true,
+     "on-click": "nextcloud --showsettings"
+  },
+
+  // ── Brightness ───────────────────────────────────────────────────
+  "backlight": {
+     "device": "intel_backlight",
+     "format": "[ {percent}% {icon} ]",
+     "format-icons": ["󰹐", "󱩎", "󱩏", "󱩐", "󱩑", "󱩒", "󱩓", "󱩔", "󱩕", "󱩖", "󰛨"]
+  },
+
+  // ── Audio ────────────────────────────────────────────────────────
+  "pulseaudio": {
+     "format": "[ {volume}% {icon} ]",
+     "format-bluetooth": "[ {volume}% {icon} ]",
+     "format-bluetooth-muted": "[ 婢  muted ]",
+     "format-muted": "[ 󰖁 muted ]",
+     "format-icons": {
+        "headphone": "󰋋",
+        "hands-free": "",
+        "headset": "󰋋",
+        "phone": "󰄜",
+        "portable": "",
+        "car": "󰸛",
+        "default": ["󰕿", "󰖀", "󰕾"]
+    },
+        "on-click-right": "pavucontrol",
+      	"on-click": ".config/hypr/scripts/changevolume mute",
+  },
+
+  // ── Spacer ───────────────────────────────────────────────────────
+  "custom/squares": {
+    "format": " ",
+    "tooltip": false
+  }
+}
+

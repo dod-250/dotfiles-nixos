@@ -1,0 +1,15 @@
+# Sensitive Files
+**/secrets.nix
+**/*secret*
+**/*.key
+**/*.pem
+
+# Temporary Files
+**/*.swp
+**/*.swo
+**/\#*
+**/.#*
+
+# Cache
+**/.cache/
+**/cache/
