@@ -129,7 +129,6 @@
     flatpak
     lm_sensors
     gimp3
-    emacs
     libsForQt5.ark
     proton-pass
     protonvpn-gui
