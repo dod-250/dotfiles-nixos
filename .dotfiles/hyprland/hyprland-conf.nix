@@ -252,6 +252,11 @@
         "float,class:^(kitty)$,title:^(kitty)$"
         "center,class:^(kitty)$,title:^(kitty)$"
         "size 800 600,class:^(kitty)$,title:^(kitty)$"
+
+        "suppressevent maximize, class:.*"
+        "float,class:^(waypaper)$,title:^(waypaper)$"
+        "center,class:^(waypaper)$,title:^(waypaper)$"
+        "size 800 600,class:^(waypaper)$,title:^(waypaper)$"
         
         "idleinhibit focus,class:^(mpv)$"
         "idleinhibit focus,class:^(firefox)$"
@@ -289,6 +294,7 @@
         "$mainMod, U, exec, kitty -e fastfetch"
         "$mainMod, I, exec, kitty -e cmatrix"
         "$mainMod, O, exec, kitty -e nvim"
+        "$mainMod, W, exec, waypaper"
         "$mainMod, Q, killactive"
         "$mainMod, M, exit"
         "$mainMod, E, exec, $fileManager"

@@ -71,6 +71,7 @@
     # === Theme & Appearance ===
     kdePackages.qt6ct  # Qt6 theme manager
     nwg-look  # GTK heme manager
+    waypaper  # Wallpaper setter
 
     # === Fonts ===
     nerd-fonts._0xproto
