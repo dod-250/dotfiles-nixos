@@ -27,7 +27,7 @@
     samba
 
     # === Launchers & Menus ===
-    rofi-wayland       # Application launcher
+    rofi       # Application launcher
 
     # === Status bar ===
     waybar             # Status bar

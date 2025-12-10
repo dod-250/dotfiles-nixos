@@ -89,18 +89,6 @@
         dim_strength = 0.1;
         dim_special = 0.5;
         dim_around = 0.4;
-
-        drop_shadow = false;
-        shadow_range = 0;
-        shadow_render_power = 0;
-        shadow_offset = "0 0";
-        shadow_scale = 1.0;
-        "col.shadow" = "rgba(00000000)";
-        "col.shadow_inactive" = "rgba(00000000)";
-
-        blur = {
-          enable = false;
-        };
       };
         
       # === Animations ===
@@ -139,24 +127,18 @@
         split_width_multiplier = 1.0;
         use_active_for_splits = true;
         default_split_ratio = 1.0;
-        no_gaps_when_only = false;
       };
 
       master = {
-        new_is_master = true;
         new_on_top = false;
-        no_gaps_when_only = false;
         orientation = "left";
         inherit_fullscreen = true;
-        always_center_master = false;
         smart_resizing = true;
         drop_at_cursor = true;
       };
 
       # === Gestures ===
       gestures = {
-        workspace_swipe = true;
-        workspace_swipe_fingers = 3;
         workspace_swipe_distance = 300;
         workspace_swipe_invert = true;
         workspace_swipe_min_speed_to_force = 30;
@@ -204,14 +186,7 @@
         enable_swallow = true;
         swallow_regex = "^(kitty|alacritty|Alacritty)$";
         focus_on_activate = false;
-        no_direct_scanout = true;
-        hide_cursor_on_touch = true;
         mouse_move_focuses_monitor = true;
-        suppress_portal_warnings = false;
-        render_ahead_of_time = false;
-        render_ahead_safezone = 1;
-        cursor_zoom_factor = 1.0;
-        cursor_zoom_rigid = false;
         allow_session_lock_restore = false;
         close_special_on_empty = true;
         new_window_takes_over_fullscreen = 0;
@@ -237,12 +212,6 @@
 
       # === Window Rules ===
       windowrule = [
-        "float, ^(pavucontrol)$"
-        "float, ^(blueman-manager)$"
-        "float, ^(nm-connection-editor)$"
-        "float, ^(thunar)$"
-        "float, ^(imv)$"
-        "float, ^(mpv)$"
       ];
 
       windowrulev2 = [
