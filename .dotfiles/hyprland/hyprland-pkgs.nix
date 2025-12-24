@@ -25,6 +25,7 @@
     kdePackages.gwenview            # Photo viewer
     gvfs         # Virtual Filesystem support library
     samba
+    kdePackages.ark
 
     # === Launchers & Menus ===
     rofi       # Application launcher
@@ -53,6 +54,7 @@
     wireplumber        # Modular session / policy manager for PipeWire
     playerctl          # Media player controller
     pulseaudio
+    plex-desktop
 
     # === Screen ===
 
