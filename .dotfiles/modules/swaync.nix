@@ -1,0 +1,61 @@
+{ config, pkgs, lib, ... }:
+
+{
+  # SwayNC configuration
+  services.swaync = {
+    enable = true;
+    
+    settings = {
+      positionX = "right";
+      positionY = "top";
+      layer = "overlay";
+      control-center-layer = "top";
+      layer-shell = true;
+      cssPriority = "user";
+      control-center-margin-top = 5;
+      control-center-margin-bottom = 0;
+      control-center-margin-right = 0;
+      control-center-margin-left = 0;
+      notification-2fa-action = true;
+      notification-inline-replies = false;
+      notification-icon-size = 24;
+      notification-body-image-height = 100;
+      notification-body-image-width = 100;
+      timeout = 6;
+      timeout-low = 3;
+      timeout-critical = 0;
+      fit-to-screen = false;
+      control-center-width = 450;
+      control-center-height = 720;
+      notification-window-width = 300;
+      keyboard-shortcuts = true;
+      image-visibility = "when-available";
+      transition-time = 200;
+      hide-on-clear = false;
+      hide-on-action = true;
+      script-fail-notify = true;
+
+      # Add MPRIS widget configuration
+      widgets = [
+        "mpris"
+        "title"
+        "dnd"
+        "notifications"
+      ];
+      
+      widget-config = {
+        mpris = {
+          image-size = 96;
+          image-radius = 12;
+          blur = true;
+        };
+      };
+    };
+  };
+
+   catppuccin.swaync = {
+    enable = true;
+    flavor = "macchiato";
+    font = "0xProto Nerd Font";
+  };
+}

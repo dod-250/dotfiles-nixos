@@ -5,6 +5,7 @@
     ./modules/starship.nix
     ./modules/spicetify.nix
     ./modules/nixvim.nix
+    ./modules/swaync.nix
     ./hyprland/hyprland-pkgs.nix
     ./hyprland/hyprland-conf.nix
   ];
@@ -63,6 +64,12 @@
   #
 
   nixpkgs.config.allowUnfree = true;
+
+  # Global Catppuccin activation (if not already done)
+  catppuccin = {
+    enable = true;
+    flavor = "macchiato";
+  };
 
   home.sessionVariables = {
     # EDITOR = "emacs";

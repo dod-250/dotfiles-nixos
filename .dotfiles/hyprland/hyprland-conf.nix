@@ -339,6 +339,8 @@
         ", XF86AudioPause, exec, playerctl play-pause"
         ", XF86AudioPlay, exec, playerctl play-pause"
         ", XF86AudioPrev, exec, playerctl previous"
+        "$mainMod, PRINT, exec, hyprshot -m window"
+        
       ];
     };
   };

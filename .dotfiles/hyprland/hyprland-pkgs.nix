@@ -34,7 +34,7 @@
     waybar             # Status bar
 
     # === Notifications ===
-    swaynotificationcenter # Notification center
+    swaynotificationcenter   # Notification center
     libnotify          # Notification library
 
     # === Screenshot & Screen recording ===
@@ -59,6 +59,10 @@
     # === Screen ===
 
     brightnessctl      # Read and control device brightness
+
+    # === Screenshot ===
+
+    grim
 
     # === System monitoring ===
     btop               # Modern system monitor
