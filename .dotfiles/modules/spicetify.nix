@@ -6,10 +6,10 @@ in
 {
 
   # Configuration spicetify
-  programs.spicetify = {
-    enable = true;
-    theme = spicePkgs.themes.catppuccin;
-    colorScheme = "macchiato";
+   programs.spicetify = {
+     enable = true;
+  #   theme = spicePkgs.themes.catppuccin;
+  #   colorScheme = "macchiato";
     
     enabledExtensions = with spicePkgs.extensions; [
       adblock

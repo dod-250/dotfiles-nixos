@@ -56,12 +56,10 @@
     pulseaudio
     plex-desktop
 
-    # === Screen ===
-
+    # === Screen ===b
     brightnessctl      # Read and control device brightness
 
     # === Screenshot ===
-
     grim
 
     # === System monitoring ===
@@ -70,17 +68,18 @@
 
     # === Network ===
     networkmanagerapplet  # Network manager GUI
+    tailscale
+    trayscale
+    ktailctl
+
+    # === Fonts ===
+    nerd-fonts._0xproto
 
     # === Bluetooth ===
     blueman            # Bluetooth manager
 
     # === Theme & Appearance ===
-    kdePackages.qt6ct  # Qt6 theme manager
-    nwg-look  # GTK heme manager
     waypaper  # Wallpaper setter
-
-    # === Fonts ===
-    nerd-fonts._0xproto
 
     # === Productivity ===
     onlyoffice-desktopeditors

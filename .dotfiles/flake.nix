@@ -5,7 +5,11 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    catppuccin.url = "github:catppuccin/nix";
+
+    stylix = {
+      url = "github:danth/stylix/release-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     
     # spicetify-nix
     spicetify-nix = {
@@ -19,7 +23,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, spicetify-nix, nixvim, catppuccin, ... }:
+  outputs = { self, nixpkgs, home-manager, spicetify-nix, nixvim, stylix, ... }:
   let
     lib = nixpkgs.lib;
     system = "x86_64-linux";
@@ -42,7 +46,7 @@
         modules = [ 
           ./home.nix
 	  nixvim.homeModules.nixvim
-          catppuccin.homeModules.catppuccin
+          stylix.homeModules.stylix
           # Import du module spicetify-nix
           spicetify-nix.homeManagerModules.default
         ];

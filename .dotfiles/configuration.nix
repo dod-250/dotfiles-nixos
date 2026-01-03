@@ -135,9 +135,6 @@
     coreutils
     power-profiles-daemon
     finamp
-    tailscale
-    trayscale
-    ktailctl
     nextcloud-client
     inotify-tools
     isoimagewriter

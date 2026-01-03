@@ -2,7 +2,7 @@
 # hyprland-conf.nix
 # =================
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   wayland.windowManager.hyprland = {
@@ -68,8 +68,8 @@
         gaps_out = 15;
         border_size = 3;
         
-        "col.active_border" = "rgb(f5a97f)";
-        "col.inactive_border" = "rgb(a6da95)";
+        # "col.active_border" = "rgb(f5a97f)";
+        "col.inactive_border" = lib.mkForce "rgb(a6da95)";
         
         layout = "dwindle";
         allow_tearing = false;
@@ -154,10 +154,10 @@
         insert_after_current = true;
         focus_removed_window = true;
         
-        "col.border_active" = "rgba(66cc66ee) rgba(66cc66ee) 45deg";
-        "col.border_inactive" = "rgba(595959aa)";
-        "col.border_locked_active" = "rgba(c3c3c3ee) rgba(c3c3c3ee) 45deg";
-        "col.border_locked_inactive" = "rgba(444444aa)";
+        # "col.border_active" = "rgba(66cc66ee) rgba(66cc66ee) 45deg";
+        # "col.border_inactive" = "rgba(595959aa)";
+        # "col.border_locked_active" = "rgba(c3c3c3ee) rgba(c3c3c3ee) 45deg";
+        # "col.border_locked_inactive" = "rgba(444444aa)";
         
         groupbar = {
           enabled = true;

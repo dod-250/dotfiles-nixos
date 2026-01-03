@@ -29,6 +29,8 @@
   home.packages = with pkgs; [
     polybarFull
     cmatrix
+    _0xproto
+    clock-rs
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -65,10 +67,61 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  # Global Catppuccin activation (if not already done)
-  catppuccin = {
+  # Stylix
+
+  stylix = {
     enable = true;
-    flavor = "macchiato";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
+
+    polarity = "dark";
+
+    override = {
+      base0D = "f5a97f";
+      base08 = "f5a97f";
+    };
+
+    targets = {
+      qt.enable = false;
+      swaync.enable = true;
+    };
+    
+    fonts = {
+      monospace = {
+        package = pkgs._0xproto;
+        name = "0xProto Nerd Font";
+      };
+      sansSerif = {
+        package = pkgs._0xproto;
+        name = "0xProto Nerd Font";
+      };
+    };
+  };
+
+  # Clock-rs
+
+  programs.clock-rs = {
+    enable = true;
+
+    settings = {
+      general = {
+        color = "green";
+        interval = 250;
+        blink = true;
+        bold = true;
+      };
+
+      position = {
+        horizontal = "center";
+        vertical = "center";
+      };
+
+      date = {
+        fmt = "%A, %B %d, %Y";
+        use_12h = false;
+        utc = true;
+        hide_seconds = true;
+      };
+    };
   };
 
   home.sessionVariables = {
