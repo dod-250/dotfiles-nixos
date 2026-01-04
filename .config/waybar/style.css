@@ -96,6 +96,14 @@ window#waybar {
 
 #custom-volume {
   color: #a6da95;
+  font-family: "0xProto Nerd Font";
+    font-size: 13px;
+    padding: 6px 12px;
+    margin: 6px 6px;
+    border-radius: 2px;
+    background-color: #24273A;
+    border: 2px solid #f5a97f;
+    color: #a6da95;
   transition: color 0.2s ease-in-out;
 }
 

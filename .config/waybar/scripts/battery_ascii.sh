@@ -1,20 +1,20 @@
 #!/usr/bin/env bash
 
-# Module batterie ASCII pour Waybar - Version NixOS
+# Waybar ASCII battery module - NixOS Compatible
 
 # Configuration
-BATTERY_PATH="/sys/class/power_supply/BAT0"  # Ajustez selon votre système
-BAR_LENGTH=10  # Longueur de la barre ASCII
+BATTERY_PATH="/sys/class/power_supply/BAT0"
+BAR_LENGTH=10
 FULL_CHAR="█"
 EMPTY_CHAR="░"
 
-# Vérifier si la batterie existe
+# Battery
 if [ ! -d "$BATTERY_PATH" ]; then
     echo '{"text": "No Battery", "class": "no-battery"}'
     exit 0
 fi
 
-# Lire les informations de la batterie
+# Battery informations
 CAPACITY=$(cat "$BATTERY_PATH/capacity" 2>/dev/null || echo "0")
 STATUS=$(cat "$BATTERY_PATH/status" 2>/dev/null || echo "Unknown")
 
@@ -22,7 +22,7 @@ STATUS=$(cat "$BATTERY_PATH/status" 2>/dev/null || echo "Unknown")
 FILLED_CHARS=$((CAPACITY * BAR_LENGTH / 100))
 EMPTY_CHARS=$((BAR_LENGTH - FILLED_CHARS))
 
-# Construire la barre ASCII
+# Build ASCII bar
 BAR=""
 for ((i=0; i<FILLED_CHARS; i++)); do
     BAR+="$FULL_CHAR"
@@ -31,7 +31,7 @@ for ((i=0; i<EMPTY_CHARS; i++)); do
     BAR+="$EMPTY_CHAR"
 done
 
-# Déterminer l'icône selon le statut et le niveau
+# Icon and status
 case "$STATUS" in
     "Charging")
         if [ "$CAPACITY" -ge 90 ]; then
@@ -100,8 +100,6 @@ case "$STATUS" in
         ;;
 esac
 
-# Formater le texte de sortie
 TEXT="$ICON [$BAR] $CAPACITY%"
 
-# Sortie JSON pour Waybar
 echo "{\"text\": \"$TEXT\", \"percentage\": $CAPACITY, \"class\": \"$CLASS\", \"tooltip\": \"Battery: $CAPACITY% ($STATUS)\"}"

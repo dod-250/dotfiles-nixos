@@ -104,18 +104,53 @@
   };
 
   # polkit
-  services.gnome.gnome-keyring.enable=true;
+  services.gnome.gnome-keyring.enable = true;
   security.pam.services.greetd.enableGnomeKeyring = true;
 
-  # power-profile-daemon
-  services.power-profiles-daemon.enable=true;
+  # power
+  services.upower.enable = true;
+  services.power-profiles-daemon.enable = false;
+
+  services.tlp = {
+    enable = true;
+    settings = {
+      # CPU
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+    
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+      CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
+    
+      CPU_BOOST_ON_AC = 1;
+      CPU_BOOST_ON_BAT = 0;
+    
+      CPU_MIN_PERF_ON_BAT = 0;
+      CPU_MAX_PERF_ON_BAT = 30;
+    
+      # Threshold
+      START_CHARGE_THRESH_BAT0 = 75;
+      STOP_CHARGE_THRESH_BAT0 = 80;
+    
+      # WiFi - power saving
+      WIFI_PWR_ON_BAT = "on";
+    
+      # USB autosuspend
+      USB_AUTOSUSPEND = 1;
+      USB_EXCLUDE_BTUSB = 1;
+    
+      # Runtime
+      RUNTIME_PM_ON_BAT = "auto";
+    
+      # SATA
+      SATA_LINKPWR_ON_BAT = "med_power_with_dipm";
+    };
+  };
 
   # tailscale
   services.tailscale.enable = true;
 
   # flatpak
   services.flatpak.enable = true;
-
   # unfree pkgs
   nixpkgs.config.allowUnfree = true;
 
@@ -140,6 +175,7 @@
     isoimagewriter
     gnome-keyring
     polkit_gnome
+    tlp
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

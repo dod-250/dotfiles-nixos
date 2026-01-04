@@ -75,6 +75,9 @@
     # === Fonts ===
     nerd-fonts._0xproto
 
+    # === Power ===
+    powertop
+
     # === Bluetooth ===
     blueman            # Bluetooth manager
 

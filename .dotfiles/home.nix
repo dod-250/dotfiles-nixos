@@ -31,6 +31,7 @@
     cmatrix
     _0xproto
     clock-rs
+    lightdm-gtk-greeter
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -81,8 +82,9 @@
     };
 
     targets = {
-      qt.enable = false;
+      qt.enable = true;
       swaync.enable = true;
+      spicetify.enable = false;
     };
     
     fonts = {
@@ -118,7 +120,7 @@
       date = {
         fmt = "%A, %B %d, %Y";
         use_12h = false;
-        utc = true;
+        utc = false;
         hide_seconds = true;
       };
     };

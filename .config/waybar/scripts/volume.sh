@@ -112,7 +112,7 @@ else
     icon=""  # nf-md-volume_high
 fi
 
-# ASCII bar (ensure we don't divide by zero)
+# ASCII bar
 if [ "$vol_int" -eq 0 ]; then
     filled=0
 else
