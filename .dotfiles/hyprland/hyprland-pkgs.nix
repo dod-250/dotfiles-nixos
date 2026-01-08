@@ -69,8 +69,6 @@
     # === Network ===
     networkmanagerapplet  # Network manager GUI
     tailscale
-    trayscale
-    ktailctl
 
     # === Fonts ===
     nerd-fonts._0xproto
