@@ -1,4 +1,4 @@
-These dotfiles have been built with patience the last few months, they are not perfect by no means but they work great for my use case. I have been inspired by catppuccin macchiato color theme and my favorite band.
+This dotfile has been built with patience the last few months, it's not perfect by no means but it works great for my use case. I have been inspired by catppuccin macchiato color theme and my favorite band.
 
 I mainly use hyprland as a DE but I have XFCE as a backup, but I may move to KDE for the backup later.
 
