@@ -25,6 +25,8 @@
         "nm-applet"
         "blueman-applet"
         "cliphist daemon"
+        "ibus-daemon -rxRd"
+        "hyprctl setcursor BreezeX-RosePine-Linux 24"
       ];
 
       # === Environment Variables ===
@@ -36,7 +38,21 @@
         "GDK_BACKEND,wayland,x11"
         "SDL_VIDEODRIVER,wayland"
         "CLUTTER_BACKEND,wayland"
+        "XDG_CURRENT_DESKTOP,Hyprland"
+        "XDG_SESSION_TYPE,wayland"
+        "XDG_SESSION_DESKTOP,Hyprland"
+        "NIXOS_OZONE_WL,1"
+        "WAYLAND_DISPLAY,wayland-1"
+        "HYPRCURSOR_THEME,BreezeX-RosePine-Linux"
+        "HYPRCURSOR_SIZE,24"
+        "GTK_THEME,adw-gtk3-dark"
+        "GTK2_RC_FILES,/dev/null"
       ];
+
+      # === Cursor ===
+      cursor = {
+        no_hardware_cursors = true;
+      };
 
       # === Input Configuration ===
       input = {

@@ -61,6 +61,10 @@ case "$STATUS" in
         ICON="󰁹"  # nf-md-battery
         CLASS="full"
         ;;
+    "Not charging")
+        ICON="󰁹"
+        CLASS="full"
+        ;;
     "Discharging")
         if [ "$CAPACITY" -ge 90 ]; then
             ICON="󰁹"  # nf-md-battery_90

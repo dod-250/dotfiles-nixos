@@ -1,3 +1,8 @@
+/* Force override GTK theme */
+@define-color bg_color #24273a;
+@define-color fg_color #a6da95;
+
+
 /* === Base Waybar Styling ================================================= */
 
 waybar * {

@@ -11,6 +11,7 @@
     hyprlock           # Screen locker
     hypridle           # Idle daemon
     hyprpicker         # Color picker
+    hyprcursor         # Cursor Theme
 
     # === Terminal & Shell ===
     kitty              # Terminal emulator
@@ -25,7 +26,6 @@
     kdePackages.gwenview            # Photo viewer
     gvfs         # Virtual Filesystem support library
     samba
-    kdePackages.ark
 
     # === Launchers & Menus ===
     rofi       # Application launcher
@@ -55,8 +55,9 @@
     playerctl          # Media player controller
     pulseaudio
     plex-desktop
+    plexamp
 
-    # === Screen ===b
+    # === Screen ===
     brightnessctl      # Read and control device brightness
 
     # === Screenshot ===
@@ -72,9 +73,6 @@
 
     # === Fonts ===
     nerd-fonts._0xproto
-
-    # === Power ===
-    powertop
 
     # === Bluetooth ===
     blueman            # Bluetooth manager

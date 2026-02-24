@@ -14,7 +14,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # I use fish btw
+  # Fish
   environment.shells = with pkgs; [ fish ];
   users.defaultUserShell = pkgs.fish;
   programs.fish.enable = true;
@@ -22,7 +22,7 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  boot.initrd.luks.devices."luks-0863dcff-44e3-463e-b037-4d7e6fb0d7b5".device = "/dev/disk/by-uuid/0863dcff-44e3-463e-b037-4d7e6fb0d7b5";
+  boot.initrd.luks.devices."luks-aa387fa6-457b-4d3e-af92-8991397df933".device = "/dev/disk/by-uuid/aa387fa6-457b-4d3e-af92-8991397df933";
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -51,12 +51,26 @@
     LC_TIME = "fr_FR.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  # Graphics
+  services.xserver = {
+    enable = true;
+    videoDrivers = [ "modesetting" ];
+  };
 
-  # Enable the XFCE Desktop Environment.
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.xfce.enable = true;
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
+  # Enable the GNOME Desktop Environment.
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
+
+  # Keyring
+  services.gnome.gnome-keyring.enable = true;
+
+  # Ibus
+  i18n.inputMethod.enable = false;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -99,16 +113,11 @@
   # hyprland
   programs.hyprland = {
     enable = true;
-    withUWSM = false; # recommended for most users
+    withUWSM = true; # recommended for most users
     xwayland.enable = false; # Xwayland can be disabled.
   };
 
-  # polkit
-  services.gnome.gnome-keyring.enable = true;
-  security.pam.services.greetd.enableGnomeKeyring = true;
-
   # power
-  services.upower.enable = true;
   services.power-profiles-daemon.enable = false;
 
   services.tlp = {
@@ -151,6 +160,7 @@
 
   # flatpak
   services.flatpak.enable = true;
+  
   # unfree pkgs
   nixpkgs.config.allowUnfree = true;
 
@@ -159,22 +169,18 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
-    git
+    pkgs.git
     flatpak
     lm_sensors
     gimp3
     proton-pass
     protonvpn-gui
-    upower
     gawkInteractive
     coreutils
-    power-profiles-daemon
     finamp
     nextcloud-client
     inotify-tools
     isoimagewriter
-    gnome-keyring
-    polkit_gnome
     tlp
   ];
 

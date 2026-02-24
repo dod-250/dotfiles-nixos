@@ -8,6 +8,7 @@
     ./modules/swaync.nix
     ./hyprland/hyprland-pkgs.nix
     ./hyprland/hyprland-conf.nix
+    ./gnome/gnome-pkgs.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -27,11 +28,10 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    polybarFull
     cmatrix
     _0xproto
     clock-rs
-    lightdm-gtk-greeter
+    rose-pine-hyprcursor
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -74,6 +74,12 @@
     enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
 
+    cursor = {
+      package = pkgs.rose-pine-cursor;
+      name = "BreezeX-RosePine-Linux";
+      size = 24;
+    };
+
     polarity = "dark";
 
     override = {
@@ -96,6 +102,16 @@
         package = pkgs._0xproto;
         name = "0xProto Nerd Font";
       };
+    };
+  };
+
+  # Icons theme
+
+  gtk = {
+    enable = true;
+    iconTheme = {
+      package = pkgs.tela-icon-theme;
+      name = "Tela-green-dark";
     };
   };
 
