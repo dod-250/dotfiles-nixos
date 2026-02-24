@@ -1,6 +1,6 @@
 This dotfile has been built with patience the last few months, it's not perfect by no means but it works great for my use case. I have been inspired by catppuccin macchiato color theme and my favorite band.
 
-I mainly use hyprland as a DE. I had XFCE as a backup, but I moved to GNOME and it was a great choice because it a keyring issue.
+I mainly use hyprland as a DE. I had XFCE as a backup, but I moved to GNOME and it was a great choice because it fixed a keyring issue.
 
 The choice to moving from Arch to NixOS was made after running into recurrent troubles with hardware and it was a good choice. NixOS has a learning curve but once you learn the basis it's a pleasure to use this OS for a everyday use.
 
