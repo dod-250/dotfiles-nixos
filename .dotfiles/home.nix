@@ -105,13 +105,25 @@
     };
   };
 
-  # Icons theme
+  # Icons theme hyprland
 
   gtk = {
     enable = true;
     iconTheme = {
-      package = pkgs.tela-icon-theme;
-      name = "Tela-green-dark";
+      package = pkgs.colloid-icon-theme.override {
+        colorVariants = [ "green" ];
+      };
+      name = "Colloid-Green-Dark";
+    };
+  };
+
+  # Icons theme & Cursor Gnome
+
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      icon-theme = "Colloid-Green-Dark";
+      cursor-theme = "BreezeX-RosePine-Linux";
+      cursor-size = 24;
     };
   };
 
