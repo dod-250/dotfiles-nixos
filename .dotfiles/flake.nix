@@ -21,9 +21,15 @@
     nixvim = {
       url = "github:nix-community/nixvim";
     };
+
+    # Quickshell
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, spicetify-nix, nixvim, stylix, ... }:
+  outputs = { self, nixpkgs, home-manager, spicetify-nix, nixvim, stylix, quickshell, ... }:
   let
     lib = nixpkgs.lib;
     system = "x86_64-linux";
@@ -39,15 +45,14 @@
     homeConfigurations = {
       dod = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        # Passer spicetify-nix aux modules via extraSpecialArgs
         extraSpecialArgs = { 
           inherit spicetify-nix;
+          quickshell-pkg = quickshell.packages.${system}.default;
         };
         modules = [ 
           ./home.nix
 	  nixvim.homeModules.nixvim
           stylix.homeModules.stylix
-          # Import du module spicetify-nix
           spicetify-nix.homeManagerModules.default
         ];
       };

@@ -5,7 +5,7 @@
     ./modules/starship.nix
     ./modules/spicetify.nix
     ./modules/nixvim.nix
-    ./modules/swaync.nix
+    ./modules/quickshell.nix
     ./hyprland/hyprland-pkgs.nix
     ./hyprland/hyprland-conf.nix
     ./gnome/gnome-pkgs.nix
@@ -32,6 +32,7 @@
     _0xproto
     clock-rs
     rose-pine-hyprcursor
+    calcurse
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

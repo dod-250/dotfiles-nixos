@@ -77,9 +77,6 @@
     # === Bluetooth ===
     blueman            # Bluetooth manager
 
-    # === Theme & Appearance ===
-    waypaper  # Wallpaper setter
-
     # === Productivity ===
     onlyoffice-desktopeditors
     joplin-desktop

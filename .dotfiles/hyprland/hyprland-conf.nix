@@ -18,8 +18,6 @@
 
       # === Autostart Applications ===
       exec-once = [
-        "waybar"
-        "swaynotificationcenter"
         "hyprpaper"
         "hypridle"
         "nm-applet"
@@ -27,6 +25,7 @@
         "cliphist daemon"
         "ibus-daemon -rxRd"
         "hyprctl setcursor BreezeX-RosePine-Linux 24"
+        "qs -p ~/.config/quickshell"
       ];
 
       # === Environment Variables ===
@@ -279,7 +278,7 @@
         "$mainMod, U, exec, kitty -e fastfetch"
         "$mainMod, I, exec, kitty -e cmatrix"
         "$mainMod, O, exec, kitty -e nvim"
-        "$mainMod, W, exec, waypaper"
+        "$mainMod, W, global, quickshell:wallpaperPicker"
         "$mainMod, Q, killactive"
         "$mainMod, M, exit"
         "$mainMod, E, exec, $fileManager"
