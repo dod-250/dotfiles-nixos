@@ -54,8 +54,7 @@
     wireplumber        # Modular session / policy manager for PipeWire
     playerctl          # Media player controller
     pulseaudio
-    plex-desktop
-    plexamp
+    jellyfin-media-player
 
     # === Screen ===
     brightnessctl      # Read and control device brightness

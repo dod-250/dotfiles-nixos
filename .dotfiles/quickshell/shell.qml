@@ -41,6 +41,12 @@ ShellRoot {
         onPressed: root.pickerVisible = !root.pickerVisible
     }
 
+    GlobalShortcut {
+        name: "mprisPopup"
+        description: "Toggle MPRIS popup"
+        onPressed: root.mprisVisible = !root.mprisVisible
+    }
+
     // ── Serveur de notifications ──────────────────────────────────────
     NotificationServer {
         id: notifServer
@@ -66,9 +72,16 @@ ShellRoot {
     property alias notifModel: _notifModel
     ListModel { id: _notifModel }
 
+    // ── Pop MPRIS with equalizer ──────────────────────────────────────
+
+    MprisPopup {
+        id: mprisPopup
+        visible: root.mprisVisible
+        barWindow: bar
+    }
+
     // ── Composants ────────────────────────────────────────────────────
-    Bar {}
-    MprisWidget {}
+    Bar { id: bar }
     NotifPopup { id: popupWindow }
     NotifCenter {}
     Calendar {}

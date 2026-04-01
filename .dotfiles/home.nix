@@ -33,6 +33,18 @@
     clock-rs
     rose-pine-hyprcursor
     calcurse
+    easyeffects
+
+    (pkgs.symlinkJoin {
+      name = "plexamp";
+      paths = [ pkgs.plexamp ];
+      buildInputs = [ pkgs.makeWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/plexamp \
+          --run 'timeout 5 bash -c "until ${pkgs.pulseaudio}/bin/pactl info &>/dev/null; do sleep 0.2; done"' \
+          --append-flags "--enable-features=MediaSessionService,HardwareMediaKeyHandling"
+      '';
+    })
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -153,6 +165,12 @@
         hide_seconds = true;
       };
     };
+  };
+
+  # Lancer EasyEffects automatiquement au login
+  services.easyeffects = {
+    enable = true;
+    preset = ""; # laisse vide pour le preset par défaut
   };
 
   home.sessionVariables = {

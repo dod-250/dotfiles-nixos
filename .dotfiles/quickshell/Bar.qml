@@ -168,7 +168,7 @@ PanelWindow {
         }
         height: Colors.barHeight
         radius: Colors.barRadius
-        color: Colors.mantle
+        color: Colors.base
         border.color: Colors.peach
         border.width: 3
 
@@ -181,7 +181,7 @@ PanelWindow {
 
             // Bouton power
             Text {
-                text: "󰐥"; font.pixelSize: 13; font.family: Colors.nerdFont
+                text: "[ 󰐥 ]"; font.pixelSize: 13; font.family: Colors.nerdFont
                 color: Colors.overlay0
                 Behavior on color { ColorAnimation { duration: 150 } }
                 MouseArea {
@@ -199,17 +199,24 @@ PanelWindow {
 
             Rectangle { width: 1; height: 18; color: Colors.surface1 }
 
-            // Luminosité
-            RowLayout {
-                spacing: 3
-                Text {
-                    text: "󰃟"; font.pixelSize: 15; font.family: Colors.nerdFont; color: Colors.yellow
-                }
-                Text {
-                    id: brightBar; text: "[░░░░░░░░░░]"; font.pixelSize: 11; color: Colors.yellow
-                }
-                Text {
-                    id: brightValue; text: "—"; font.pixelSize: 11; color: Colors.subtext0
+            // Luminosité — FIX : MouseArea sorti du RowLayout dans un Item wrapper
+            Item {
+                implicitWidth:  brightRow.implicitWidth
+                implicitHeight: brightRow.implicitHeight
+
+                RowLayout {
+                    id: brightRow
+                    anchors.fill: parent
+                    spacing: 3
+                    Text {
+                        text: "󰃟"; font.pixelSize: 15; font.family: Colors.nerdFont; color: Colors.yellow
+                    }
+                    Text {
+                        id: brightBar; text: "[░░░░░░░░░░]"; font.pixelSize: 11; color: Colors.yellow
+                    }
+                    Text {
+                        id: brightValue; text: "—"; font.pixelSize: 11; color: Colors.subtext0
+                    }
                 }
                 MouseArea {
                     anchors.fill: parent
@@ -274,44 +281,62 @@ PanelWindow {
             // Workspaces
             Repeater {
                 model: Hyprland.workspaces.values
-                delegate: Rectangle {
+                delegate: Item {
                     required property HyprlandWorkspace modelData
                     readonly property bool isActive: modelData.id === Hyprland.focusedMonitor?.activeWorkspace?.id
                     width: isActive ? 24 : 8
-                    height: isActive ? 24 : 8
-                    radius: isActive ? 6 : 4
-                    color: isActive ? Colors.peach : Colors.surface1
-                    Behavior on width { NumberAnimation { duration: 150; easing.type: Easing.OutCubic } }
-                    Behavior on color { ColorAnimation { duration: 150 } }
-                    Text {
+                    height: Colors.barHeight
+                    Layout.preferredWidth: isActive ? 24 : 8
+                    Layout.preferredHeight: Colors.barHeight
+
+                    Rectangle {
                         anchors.centerIn: parent
-                        visible: parent.isActive
-                        text: parent.modelData.id
-                        color: Colors.mantle; font.pixelSize: 11; font.weight: Font.Medium
-                    }
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: Hyprland.dispatch("workspace " + parent.modelData.id)
-                        cursorShape: Qt.PointingHandCursor
-                    }
-                }
-            }
-        }
+                        width: isActive ? 24 : 8
+                        height: isActive ? 24 : 8
+                        radius: isActive ? 6 : 4
+                        color: isActive ? Colors.green : Colors.surface1
+                        Behavior on width  { NumberAnimation { duration: 150; easing.type: Easing.OutCubic } }
+                        Behavior on height { NumberAnimation { duration: 150; easing.type: Easing.OutCubic } }
+                        Behavior on color  { ColorAnimation  { duration: 150 } }
 
-        // ── Centre : horloge ─────────────────────────────────────────
-        ColumnLayout {
+                        Text {
+                            anchors.centerIn: parent
+                            visible: parent.parent.isActive
+                            text: parent.parent.modelData.id
+                            color: Colors.mantle; font.pixelSize: 11; font.weight: Font.Medium
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: Hyprland.dispatch("workspace " + parent.parent.modelData.id)
+                            cursorShape: Qt.PointingHandCursor
+                       }
+                   }
+               }
+           }
+           }
+
+        // ── Centre : horloge — FIX : MouseArea sorti du ColumnLayout dans un Item wrapper
+        Item {
             anchors.centerIn: parent
-            spacing: 0
+            implicitWidth:  clockCol.implicitWidth
+            implicitHeight: clockCol.implicitHeight
 
-            Text {
-                Layout.alignment: Qt.AlignHCenter
-                text: Qt.formatTime(clock.date, "HH:mm:ss")
-                color: Colors.peach; font.pixelSize: 13; font.weight: Font.Medium
-            }
-            Text {
-                Layout.alignment: Qt.AlignHCenter
-                text: Qt.formatDate(clock.date, "ddd dd MMM")
-                color: Colors.subtext0; font.pixelSize: 10
+            ColumnLayout {
+                id: clockCol
+                anchors.fill: parent
+                spacing: 0
+
+                Text {
+                    Layout.alignment: Qt.AlignHCenter
+                    text: Qt.formatTime(clock.date, "HH:mm:ss")
+                    color: Colors.peach; font.pixelSize: 13; font.weight: Font.Medium
+                }
+                Text {
+                    Layout.alignment: Qt.AlignHCenter
+                    text: Qt.formatDate(clock.date, "ddd dd MMM")
+                    color: Colors.subtext0; font.pixelSize: 10
+                }
             }
 
             MouseArea {

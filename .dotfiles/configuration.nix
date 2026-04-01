@@ -60,6 +60,18 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
+    extraPackages = with pkgs; [
+      intel-media-driver   # VA-API pour Intel Gen 8+
+      intel-compute-runtime # OpenCL
+      libva-vdpau-driver
+      libvdpau-va-gl
+    ];
+  };
+
+  # XDG Portal
+  xdg.portal = {
+    enable = true;
+    xdgOpenUsePortal = true;
   };
 
   # Enable the GNOME Desktop Environment.
