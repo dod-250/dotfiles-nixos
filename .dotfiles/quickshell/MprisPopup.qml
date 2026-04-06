@@ -1,7 +1,6 @@
 import Quickshell
 import Quickshell.Services.Mpris
 import Quickshell.Io
-import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
 
@@ -9,25 +8,28 @@ import QtQuick.Layouts
 // Floating MPRIS popup with functional EQ (EasyEffects via gsettings)
 // Theme  : Catppuccin Macchiato | peach + green accents
 // Font   : 0xProto Nerd Font
-// Note   : PopupWindow (Quickshell) n'a pas enter/exit — animation via opacity
 // ──────────────────────────────────────────────────────────────────────────────
 
-PopupWindow {
+PanelWindow {
     id: root
 
     // ── Positioning ──────────────────────────────────────────────────────────
-    // barWindow est passé depuis shell.qml : MprisPopup { barWindow: bar }
-    property var barWindow: null
+    anchors.top:   true
+    anchors.left: true
+    exclusiveZone: 0
+    exclusionMode: ExclusionMode.Ignore
+    implicitWidth:  416
+    implicitHeight: card.implicitHeight + 64
+    color: "transparent"
 
-    anchor.window: barWindow
-    anchor.rect.x:      barWindow ? barWindow.width - implicitWidth - 16 : 0
-    anchor.rect.y:      barWindow ? barWindow.implicitHeight : 0
-    anchor.rect.width:  implicitWidth
-    anchor.rect.height: implicitHeight
-
-    implicitWidth:  400
-    implicitHeight: card.implicitHeight
-    color:  "transparent"
+    Component.onCompleted: {
+        for (let i = 0; i < Quickshell.screens.values.length; i++) {
+            if (Quickshell.screens.values[i].name === "DP-3") {
+                root.screen = Quickshell.screens.values[i]
+                break
+            }
+        }
+    }
 
     // ── Catppuccin Macchiato ─────────────────────────────────────────────────
     QtObject {
@@ -54,7 +56,6 @@ PopupWindow {
     property string trackTitle:  player?.trackTitle  ?? "Nothing playing"
     property string trackArtist: player?.trackArtist ?? "—"
     property string artUrl:      player?.trackArtUrl ?? ""
-    // trackLength absent sur Spotify : fallback sur mpris:length (µs → ms)
     property real trackLen: {
         if (!player) return 0
         var tl = player.trackLength
@@ -75,7 +76,6 @@ PopupWindow {
     onPlayerChanged:     { localPos = 0; _lastTick = 0 }
     onTrackTitleChanged: { localPos = 0; _lastTick = 0 }
 
-    // Timer basé sur delta réel pour éviter tout drift
     property real _lastTick: 0
 
     Timer {
@@ -126,7 +126,6 @@ PopupWindow {
         sendEq()
     }
 
-    // Fréquences fixes des 10 bands (Hz)
     readonly property var bandFreqs: [31.0, 63.0, 125.0, 250.0, 500.0, 1000.0, 2000.0, 4000.0, 8000.0, 16000.0]
 
     function makeBand(i) {
@@ -201,14 +200,19 @@ PopupWindow {
     // ═════════════════════════════════════════════════════════════════════════
     Rectangle {
         id: card
-        width:  parent.width
+        anchors {
+            top:         parent.top
+            left:       parent.left
+            topMargin:   64
+            leftMargin: 16
+        }
+        width:  400
         implicitHeight: mainCol.implicitHeight + 32
         radius: 14
         color:  col.base
-        border.color: col.surface0
-        border.width: 1
+        border.color: col.peach
+        border.width: 2
 
-        // Fade in/out — opacity sur le contenu, pas sur PopupWindow
         opacity: root.visible ? 1.0 : 0.0
         Behavior on opacity {
             NumberAnimation { duration: 180; easing.type: Easing.OutCubic }
@@ -402,7 +406,6 @@ PopupWindow {
                             width:  parent.width / root.bandLabels.length
                             height: parent.height
 
-                            // dB readout
                             Text {
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 anchors.top: parent.top
@@ -417,7 +420,6 @@ PopupWindow {
                                 font { family: "0xProto Nerd Font"; pixelSize: 9 }
                             }
 
-                            // Slider zone
                             Item {
                                 id: sz
                                 anchors.horizontalCenter: parent.horizontalCenter
@@ -432,14 +434,12 @@ PopupWindow {
                                     anchors.top: parent.top; anchors.bottom: parent.bottom
                                 }
 
-                                // Zero line
                                 Rectangle {
                                     width: 8; height: 1; color: col.overlay0
                                     anchors.horizontalCenter: parent.horizontalCenter
                                     anchors.verticalCenter:   parent.verticalCenter
                                 }
 
-                                // Fill
                                 Rectangle {
                                     property real db:    root.eqValues[bandItem.bi]
                                     property real fillH: Math.abs(db / 12) * (trk.height / 2)
@@ -453,7 +453,6 @@ PopupWindow {
                                     Behavior on color  { ColorAnimation  { duration: 100 } }
                                 }
 
-                                // Handle
                                 Rectangle {
                                     id: knob
                                     property real db:   root.eqValues[bandItem.bi]
@@ -487,7 +486,6 @@ PopupWindow {
                                 }
                             }
 
-                            // Band label
                             Text {
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 anchors.bottom: parent.bottom

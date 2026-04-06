@@ -14,6 +14,9 @@ ShellRoot {
     property bool notifCenterVisible: false
     property list<string> wallpapers: []
     property int unreadCount: 0
+    property bool sysPopupVisible: false
+    property bool networkPopupVisible: false
+    property var  networkPopup:        null
 
     // ── Processus globaux ─────────────────────────────────────────────
     Process {
@@ -77,13 +80,15 @@ ShellRoot {
     MprisPopup {
         id: mprisPopup
         visible: root.mprisVisible
-        barWindow: bar
     }
 
     // ── Composants ────────────────────────────────────────────────────
-    Bar { id: bar }
+    Bar {}
     NotifPopup { id: popupWindow }
     NotifCenter {}
     Calendar {}
     WallpaperPicker {}
+    SystemPopup  { visible: sysPopupVisible;     onCloseRequested: sysPopupVisible = false }
+    NetworkPopup { id: netPopup; visible: networkPopupVisible; onCloseRequested: networkPopupVisible = false
+                   Component.onCompleted: root.networkPopup = netPopup }
 }
